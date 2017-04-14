@@ -3,27 +3,29 @@
   (:require [reagent.core :as reagent :refer [atom]]
             [re-frame.core :refer [register-handler register-sub subscribe dispatch dispatch-sync]]
             [goog.events :as events]
-			[my-function.my-function :as my-function]))
+			[my-function.my-function :as my-function]
+      [puzzle.model :as model]))
 
 (enable-console-print!)
 
 (println "Helooooooooo")
 
 (println (my-function/foo 7 6))
-			
+(println (model/test 13 11))
 
 
 
-;;;;;;;;;;;;;;;;;;;;;;;; Commented out			
+
+;;;;;;;;;;;;;;;;;;;;;;;; Commented out
 (comment
 (ns snake-game.core
   (:require-macros [reagent.ratom :refer [reaction]])
   (:require [reagent.core :as reagent :refer [atom]]´
             [re-frame.core :refer [register-handler register-sub subscribe dispatch dispatch-sync]]
-            [goog.events :as events]))			
+            [goog.events :as events]))
 )
 
-(comment			
+(comment
 	(ns snake-game.core
 	  (:require ))
 
