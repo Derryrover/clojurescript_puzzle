@@ -4,7 +4,8 @@
             [re-frame.core :refer [register-handler register-sub subscribe dispatch dispatch-sync]]
             [goog.events :as events]
 			[my-function.my-function :as my-function]
-      [puzzle.model :as model]))
+      [puzzle.model :as model]
+      [puzzle.move :as move]))
 
 (enable-console-print!)
 
@@ -14,6 +15,8 @@
 ;;(println (model/test 13 11))
 ;;(println (model/test 13 12))
 (println model/coords)
+;;(println model/concatted)
+;;(println model/flatted)
 ;;(println model/tile)
 ;;(println model/combined_list)
 ;;(println model/coords2)
