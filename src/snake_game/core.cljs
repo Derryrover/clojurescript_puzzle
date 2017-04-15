@@ -8,10 +8,17 @@
 
 (enable-console-print!)
 
-(println "Helooooooooo")
+(println "Hello")
 
-(println (my-function/foo 7 6))
-(println (model/test 13 11))
+;;(println (my-function/foo 7 6))
+;;(println (model/test 13 11))
+;;(println (model/test 13 12))
+(println model/coords)
+;;(println model/tile)
+;;(println model/combined_list)
+;;(println model/coords2)
+;;(println (:x model/dims))
+;;
 
 
 
