@@ -14,11 +14,23 @@
 ;;(println (my-function/foo 7 6))
 ;;(println (model/test 13 11))
 ;;(println (model/test 13 12))
-(println model/coords)
+(println model/tiles)
+(println (move/findMove model/tiles {:x 1 :y 1}))
+(println (move/findMove model/tiles {:x -1 :y -1}))
+(println (move/findMove model/tiles {:x 0 :y 0}))
+(println (move/findMove model/tiles {:x 2 :y 2}))
+(println (move/findMove model/tiles {:x 2 :y 3}))
+(println (move/findMove model/tiles {:x 2 :y 1}))
+(println (move/findMove model/tiles {:x 3 :y 2}))
+(println (move/findMove model/tiles {:x 1 :y 2}))
+
+
 ;;(println (move/findMove 1 2))
-(println (move/oneUp {:x 1 :y 2}))
-(println (move/oneUp {:x 1 :y 0}))
-(println (move/oneDown {:x 1 :y 0}))
+;;(println (move/oneUp {:x 1 :y 2}))
+;;(println (move/oneUp {:x 1 :y 0}))
+;;(println (move/oneDown {:x 1 :y 0}))
+;;(println (model/getFromCollection model/coords {:x 1 :y 0}))
+;;(println (model/excludeFromCollection model/coords {:x 1 :y 0}))
 ;;(println (move/coor))
 ;;(println model/concatted)
 ;;(println model/flatted)
@@ -27,6 +39,15 @@
 ;;(println model/coords2)
 ;;(println (:x model/dims))
 ;;
+
+
+
+
+
+
+
+
+
 
 
 

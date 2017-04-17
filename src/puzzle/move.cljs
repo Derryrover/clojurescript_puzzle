@@ -1,38 +1,94 @@
 (ns puzzle.move
   (:require [puzzle.model :as model]))
 
-;; set the dimensions of the puzzle
-(def size {:x 4 :y 4})
+;; currently not used
+(defn functor1 [func parm1]
+  (if (= nil parm1)
+    nil
+    (func parm1) ))
 
 (defn oneUp [coor]
-  ;;(def x (:x coor) )
-  ;;(def y (:y coor) )
   (let [x (:x coor) y (:y coor)]
-    (if (== y 0)
+    (if (= y 0)
       nil
       {:x x :y (- y 1)} )))
 
 (defn oneDown [coor]
-  ;;(let x (:x coor) )
-  ;;(let y (:y coor) )
   (let [x (:x coor) y (:y coor)]
-    (if (== y (:y model/size))
+    (if (= y (:y model/size))
       nil
       {:x x :y (+ y 1)} )))
 
 (defn oneLeft [coor]
   (let [x (:x coor) y (:y coor)]
-    (if (== x 0)
+    (if (= x 0)
       nil
       {:x (- x 1) :y y} )))
 
 (defn oneRight [coor]
   (let [x (:x coor) y (:y coor)]
-    (if (== x (:x model/size))
+    (if (= x (:x model/size))
       nil
       {:x (+ x 1) :y y} )))
 
-;; create vecs for x and y dimensions
+(defn canMoveTo [vecs coord]
+  (if (= coord nil)
+    false
+    (if (= nil (model/getFromCollection vecs coord))
+      true
+      false
+    )
+  )
+)
+
+;; find possible move for coord in vector collection
+;; returns string up down left right or nil
 (defn findMove [vecs coord]
- (def coor 7 )
-  (+ 8 coor))
+(let [self  (model/getFromCollection vecs coord)
+      up    (canMoveTo vecs (oneUp coord))
+      down  (canMoveTo vecs (oneDown coord))
+      left  (canMoveTo vecs (oneLeft coord))
+      right (canMoveTo vecs (oneRight coord))
+      ]
+      (if (= self nil)
+        nil
+        (if (= up true)
+          "up"
+          (if (= down true)
+            "down"
+            (if (= left true)
+              "left"
+              (if (= right true)
+                "right"
+                nil
+              )
+            )
+          )
+        )
+      )
+  )
+ )
+
+(defn adaptCoord [coord move]
+  (let [x (:x coord) y (:y coord)]
+  (case move
+    "up"    (assoc coord :y (- 1 y))
+    "down"  (assoc coord :y (+ 1 y))
+    "left"  (assoc coord :x (- 1 x))
+    "right" (assoc coord :x (+ 1 x))
+    coord
+    )
+    )
+  )
+
+(defn doMove [vecs coord move]
+    (let [excluded (model/excludeFromCollection vecs coord)
+          item     (model/getFromCollection vecs coord)
+          adaptedCoord (adaptCoord coord move)
+          ]
+          (if item
+            (conj excluded (assoc item :butIs adaptedCoord))
+            vecs
+            )
+      )
+  )

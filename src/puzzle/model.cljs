@@ -20,7 +20,7 @@
 
 ;; concatting two vectors
 (defn concat2Vectors [ list1 list2]
-  (if (==(compare list2 []) 0)
+  (if (= list2 [])
       list1
       (concat2Vectors (conj list1 (nth list2 0))  (subvec list2 1) ) ))
 ;;(def concatted (concat2Vectors [1 2 3] [5 6 7] ))
@@ -40,3 +40,17 @@
 
 ;; all tyles of the puzzle
 (def coords (lift2 createTile (:x dims) (:y dims) ))
+
+(defn getFromCollection [vecs coor]
+  (let [filtered (filterv (fn [vec] (= coor (:butIs vec))) vecs)]
+    (if (= [] filtered)
+      nil
+      (nth filtered 0))
+       ))
+
+(defn excludeFromCollection [vecs coor]
+ (filterv (fn [vec] (not= coor (:butIs vec))) vecs))
+
+
+;;(def tiles (excludeFromCollection coords {:x 0 :y 0 }))
+(def tiles (excludeFromCollection coords {:x 2 :y 2 }))
