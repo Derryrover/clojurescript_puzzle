@@ -23,6 +23,7 @@
 (println (move/findMove model/tiles {:x 2 :y 1}))
 (println (move/findMove model/tiles {:x 3 :y 2}))
 (println (move/findMove model/tiles {:x 1 :y 2}))
+(println (move/moveCoord model/tiles {:x 1 :y 2}))
 
 
 ;;(println (move/findMove 1 2))

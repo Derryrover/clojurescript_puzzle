@@ -88,7 +88,16 @@
           ]
           (if item
             (conj excluded (assoc item :butIs adaptedCoord))
-            vecs
+            7
             )
       )
+  )
+
+  (defn moveCoord [vecs coord]
+    (let [move (findMove vecs coord)]
+      (if (= nil move)
+        vecs
+        (doMove vecs coord move)
+      )
+    )
   )
