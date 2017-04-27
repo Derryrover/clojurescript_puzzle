@@ -1,5 +1,6 @@
 (ns puzzle.core
   (:require
+    [dommy.core :refer-macros [sel sel1]]
     [puzzle.model :as model]
       [puzzle.move :as move]))
 
