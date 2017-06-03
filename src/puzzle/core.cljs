@@ -1,15 +1,15 @@
 (ns puzzle.core
   (:require
-    [dommy.core :refer-macros [sel sel1]]
+    [dommy.core :as dommy :refer-macros [sel sel1]]
     [puzzle.model :as model]
-      [puzzle.move :as move]))
+    [puzzle.move :as move]
+    [puzzle.image_dimension :as image_dimension]))
 
 (enable-console-print!)
 
 (println "This text is printed from src/puzzle/core.cljs. Go ahead and edit it and see reloading in action.")
 
 ;; define your app data so that it doesn't get over-written on reload
-
 (defonce app-state (atom {:text "Hello world!"}))
 
 (defn on-js-reload []
@@ -18,20 +18,63 @@
   ;; (swap! app-state update-in [:__figwheel_counter] inc)
 )
 
-(println "Hello 234455")
+( comment
+  (println model/tiles)
+  (println (move/findMove model/tiles {:x 1 :y 1}))
+  (println (move/findMove model/tiles {:x -1 :y -1}))
+  (println (move/findMove model/tiles {:x 0 :y 0}))
+  (println (move/findMove model/tiles {:x 2 :y 2}))
+  (println (move/findMove model/tiles {:x 2 :y 3}))
+  (println (move/findMove model/tiles {:x 2 :y 1}))
+  (println (move/findMove model/tiles {:x 3 :y 2}))
+  (println (move/findMove model/tiles {:x 1 :y 2}))
+  (println (move/moveCoord model/tiles {:x 1 :y 2}))
+)
 
-;;(println (my-function/foo 7 6))
-;;(println (model/test 13 11))
-;;(println (model/test 13 12))
-(println model/tiles)
-(println (move/findMove model/tiles {:x 1 :y 1}))
-(println (move/findMove model/tiles {:x -1 :y -1}))
-(println (move/findMove model/tiles {:x 0 :y 0}))
-(println (move/findMove model/tiles {:x 2 :y 2}))
-(println (move/findMove model/tiles {:x 2 :y 3}))
-(println (move/findMove model/tiles {:x 2 :y 1}))
-(println (move/findMove model/tiles {:x 3 :y 2}))
-(println (move/findMove model/tiles {:x 1 :y 2}))
-(println (move/moveCoord model/tiles {:x 1 :y 2}))
+(println (clojure.string/join ["testttt" "123"]))
+(println "testttt")
+(println "testttt__2")
+(println "testttt__3")
+(println "testttt__4")
+(println (get model/size :x))
 
-(enable-console-print!)
+(js/addEventListener "resize" (fn []
+  (image_dimension/risize_image)
+))
+(image_dimension/risize_image)
+
+(defn putTile [tile_model]
+(let [ height (/ 100 (get model/size :y))
+       width  (/ 100 (get model/size :x))
+       left (* (get-in tile_model [:butIs :x]) width)
+       top (* (get-in tile_model [:butIs :y]) height)
+       heightStyle (clojure.string/join ["height:" height "%;"])
+       widthStyle (clojure.string/join ["width:" width "%;"])
+       leftStyle (clojure.string/join ["left:" left "%;"])
+       topStyle (clojure.string/join ["top:" top "%;"])
+       leftStyleMinus (clojure.string/join ["left:" (- ( * left (get model/size :x))) "%;"])
+       topStyleMinus (clojure.string/join ["top:" (- ( * top (get model/size :y))) "%;"])
+       style_size (clojure.string/join ["overflow:hidden;position:absolute;" heightStyle widthStyle leftStyle topStyle])
+       style_inner (clojure.string/join ["z-index:10;position:absolute;" leftStyleMinus topStyleMinus])
+       id (clojure.string/join ["js_id_tile" (get-in tile_model [:shouldBe :x]) (get-in tile_model [:shouldBe :y])]) ]
+
+  (dommy/append! (sel1 :#puzzle_screen)
+    (let [node (.cloneNode (sel1 :#prototype_tile) true)
+         inner (sel1 node :#prototype_inner)]
+      (dommy/set-attr! node :style style_size)
+      (dommy/set-attr! node :id id)
+      (dommy/set-attr! node :class "css_tiles")
+      ;;(println inner)
+      ;;(dommy/set-attr! inner :style style_inner)
+      ))
+   (dommy/set-attr! (sel1 (sel1 (clojure.string/join ["#" id])) :#prototype_inner) :style style_inner)
+)
+)
+;;(putTile 1)
+(mapv putTile model/tiles)
+
+(comment
+(dommy/append! (sel1 :#puzzle_screen)
+  (let [node (.cloneNode (sel1 :#prototype_tile) true)]
+    (dommy/set-attr! node :id "12345")))
+)

@@ -1,0 +1,58 @@
+html, body {
+    height: 100%;
+	width: 100%;
+    margin: 0;
+    padding: 0;
+	
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.outer {
+	/*
+	background-color: red;
+	width: 100px;
+	height: 100px;
+	max-height: 100%;
+    max-width: 100%;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+	*/
+	
+	background-color: red;
+	float: center;
+	
+	
+	
+	/*display: block;
+	display: inline-block;*/
+	
+}
+
+img {
+    /*
+	padding: 0;
+    display: block;
+    margin: 0 auto;
+    max-height: 100%;
+    max-width: 100%;
+	*/
+	/*margin: 0 auto;*/
+	/*display: block;*/
+	/*padding: 0;*/
+	height: 100%;
+    width: 100%;
+	
+	object-fit: contain;
+	/*height: 100%;
+    width: auto;*/
+	/*position: absolute;*/
+	/*
+	display: flex;
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;*/
+}

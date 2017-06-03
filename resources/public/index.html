@@ -1,19 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html style="height:100%;margin:0px;">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <link rel="icon" href="https://clojurescript.org/images/cljs-logo-icon-32.png">
   </head>
-  <body>
-    <div id="app">
+  <body style="height:100%;margin:0px;">
+    <div id="app" style="height:100%">
+    <div style="height:100%;display:flex;justify-content:center;align-items:center;">
+      <!--
       <h2>Figwheel template</h2>
       <p>Checkout your developer console.</p>
-      <div id="prototype_tile" style="background-color:red;width:100px;height:100px;"></div>
-      <div id="puzzle_screen" style="background-color:green;width:600px;height:600px;"></div>
+      -->
+
+      <div id="prototype_tile" style="display:none">
+        <div id="prototype_inner" style="z-index:10;">
+        <img class="js_img_class" src="Sun_Rise.JPG" />
+        </div>
+        <div style="position:absolute;height:100%;width:100%;top:0px;z-index:20;border: 1px inset rgb(255,255,255);"><!--background-color:red-->
+        </div>
+      </div>
+
+      <div id="puzzle_screen" style="background-color:green;width:600px;height:600px;">
+      </div>
+
+      <img id="js_img_id" src="Sun_Rise.JPG" style="display:none" /><!--display:none;-->
 
     </div>
+    </div>
+    <!--<script src="clojurescript_js_wrapper/cloneNode.js" type="text/javascript"></script>-->
+
     <script src="js/compiled/puzzle.js" type="text/javascript"></script>
+
+
   </body>
 </html>
+
+<!--
+Html.div [ onMouseDown, style ["height" => "100%"] ]
+    [ Html.div [style ["height" => "100%", "display"=>"flex", "justify-content"=> "center", "align-items"=>"center"]]
+          --[ WebGL.toHtml [width 800, height 800] (List.concat[(sceneSpinRow model), (sceneRest model)]) ]
+          --[ WebGL.toHtml [onMouseDown, width 800, height 800, style ["height" => "100%"]] (List.concat[(sceneSpinRow model), (sceneRest model)]) ]
+          --[ WebGL.toHtml [id "js_cubicle_canvas", onMouseDown,width 800, height 800, style ["height" => "100%"]] (List.concat[(sceneSpinRow model), (sceneRest model)])
+          [ WebGL.toHtml [id "js_cubicle_canvas",width 800, height 800, style ["height" => "70%", "display"=>"block","margin" => "auto"]]
+-->
