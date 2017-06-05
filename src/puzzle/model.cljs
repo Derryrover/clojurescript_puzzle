@@ -53,4 +53,5 @@
 
 
 ;;(def tiles (excludeFromCollection coords {:x 0 :y 0 }))
-(def tiles (excludeFromCollection coords {:x 2 :y 2 }))
+;;(def tiles (excludeFromCollection coords {:x 2 :y 2 }))
+(def tiles (excludeFromCollection coords {:x 3 :y 3 }))

@@ -93,14 +93,20 @@
                   animStyle (dom_sizes/getAnimStyle oldTile newTile)
                   newTileX (get newTile :x)]
 
-           (.log js/console animStyle)
-           (.log js/console move)
+           ;; (.log js/console animStyle)
+           ;; (.log js/console move)
            ;;(.log js/console (get (move/adaptCoord {:x 3 :y 1} "left") :x))
-           (.log js/console newTileX)
-           (.log js/console (clojure.string/join [(get oldTile :x) "_" (get oldTile :y)]))
-           (.log js/console (get newTile :x))
-           (.log js/console (clojure.string/join [(get newTile :x) "_" (get newTile :y)]))
-           (dommy/set-attr! (sel1 (clojure.string/join ["#" id])) :style (clojure.string/join ["overflow:hidden;position:absolute;" heightStyle widthStyle animStyle]))
+           ;;(.log js/console newTileX)
+           ;;(.log js/console (clojure.string/join [(get oldTile :x) "_" (get oldTile :y)]))
+           ;;(.log js/console (get newTile :x))
+           ;;(.log js/console (clojure.string/join [(get newTile :x) "_" (get newTile :y)]))
+           ;;(dommy/set-attr! (sel1 (clojure.string/join ["#" id])) :style (clojure.string/join ["overflow:hidden;position:absolute;" heightStyle widthStyle animStyle]))
+
+           ( dom_sizes/animate  id (clojure.string/join ["overflow:hidden;position:absolute;" heightStyle widthStyle]) oldTile newTile)
+                                                         ;;(dom_sizes/getTileTop oldTile)
+                                                         ;;(dom_sizes/getTileTop newTile)
+                                                         ;;(dom_sizes/getTileLeft oldTile)
+                                                         ;;(dom_sizes/getTileLeft newTile) )
 
            (reset! all-tiles (move/doMove (deref all-tiles) (deref tile_model_state) move ))
            (reset! tile_model_state (move/adaptCoord (deref tile_model_state) move))
