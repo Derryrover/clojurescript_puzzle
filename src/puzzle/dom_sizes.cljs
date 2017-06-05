@@ -14,9 +14,20 @@
   )
 
 (defn getTileLeft [tile]
-    (* (get-in tile [:butIs :x]) (getTileWidth))
+    (* (get tile :x) (getTileWidth))
   )
 
 (defn getTileTop [tile]
-    (* (get-in tile [:butIs :y]) (getTileHeight))
+    (* (get tile :y) (getTileHeight))
+  )
+
+(defn getAnimStyle [oldTile newTile]
+    (let [
+      oldTop (getTileTop oldTile)
+      newTop (getTileTop newTile)
+      oldLeft (getTileLeft oldTile)
+      newLeft (getTileLeft newTile)
+      ]
+      (clojure.string/join ["left:" newLeft "%;" "top:" newTop "%;"])
+      )
   )

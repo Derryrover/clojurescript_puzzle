@@ -72,10 +72,10 @@
 (defn adaptCoord [coord move]
   (let [x (:x coord) y (:y coord)]
   (case move
-    "up"    (assoc coord :y (- 1 y))
-    "down"  (assoc coord :y (+ 1 y))
-    "left"  (assoc coord :x (- 1 x))
-    "right" (assoc coord :x (+ 1 x))
+    "up"    (assoc coord :y (- y 1 ))
+    "down"  (assoc coord :y (+ y 1 ))
+    "left"  (assoc coord :x (- x 1 ))
+    "right" (assoc coord :x (+ x 1 ))
     coord
     )
     )
@@ -88,7 +88,7 @@
           ]
           (if item
             (conj excluded (assoc item :butIs adaptedCoord))
-            vecs;;7 ;; what is this ?? do we just assume this never happens 
+            vecs;;7 ;; what is this ?? do we just assume this never happens
             )
       )
   )

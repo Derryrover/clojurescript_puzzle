@@ -76,22 +76,43 @@
       ))
    (dommy/set-attr! (sel1 (sel1 (clojure.string/join ["#" id])) :#prototype_inner) :style style_inner)
    ;;(dommy/listen! (sel1 (clojure.string/join ["#" id])) :click click-handler)
-   (dommy/listen! (sel1 (clojure.string/join ["#" id])) :click (fn [e]
+
+   (defn click-tile [e]
        (let [butIs (get tile_model :butIs)
              move (move/findMove (deref all-tiles) (deref tile_model_state))]
-       (.log js/console "You clicked my button! Congratulations 2")
-       (.log js/console (clojure.string/join [(get (deref tile_model_state) :x) "_" (get (deref tile_model_state) :y)]))
-       (.log js/console move)
+       ;;(.log js/console "You clicked my button! Congratulations 2")
+       ;;(.log js/console (clojure.string/join [(get (deref tile_model_state) :x) "_" (get (deref tile_model_state) :y)]))
+       ;;(.log js/console move)
 
        ;;(reset! atom newval)
        (if (not= move nil)
          ((fn []
+           (let [ oldTile (deref tile_model_state)
+                  newTile (move/adaptCoord oldTile move)
+                  ;;animStyle (clojure.string/join ["overflow:hidden;position:absolute;" heightStyle widthStyle leftStyle topStyle])]
+                  animStyle (dom_sizes/getAnimStyle oldTile newTile)
+                  newTileX (get newTile :x)]
+
+           (.log js/console animStyle)
+           (.log js/console move)
+           ;;(.log js/console (get (move/adaptCoord {:x 3 :y 1} "left") :x))
+           (.log js/console newTileX)
+           (.log js/console (clojure.string/join [(get oldTile :x) "_" (get oldTile :y)]))
+           (.log js/console (get newTile :x))
+           (.log js/console (clojure.string/join [(get newTile :x) "_" (get newTile :y)]))
+           (dommy/set-attr! (sel1 (clojure.string/join ["#" id])) :style (clojure.string/join ["overflow:hidden;position:absolute;" heightStyle widthStyle animStyle]))
+
            (reset! all-tiles (move/doMove (deref all-tiles) (deref tile_model_state) move ))
            (reset! tile_model_state (move/adaptCoord (deref tile_model_state) move))
-            ))
+            )))
          )
 
-       )))
+       ))
+
+   ;;(dommy/listen! (sel1 (clojure.string/join ["#" id])) :click click-tile)
+   ;;(dommy/listen! (sel1 (clojure.string/join ["#" id])) :dragstart click-tile)
+    ;;(dommy/listen! (sel1 (clojure.string/join ["#" id])) :dragleave click-tile)
+    (dommy/listen! (sel1 (clojure.string/join ["#" id])) :mousedown click-tile)
 )
 )
 ;;(putTile 1)

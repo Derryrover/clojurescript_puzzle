@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <link rel="icon" href="https://clojurescript.org/images/cljs-logo-icon-32.png">
+    <style>
+    #app {
+     -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+     -moz-user-select: none; /* mozilla browsers */
+     -khtml-user-select: none; /* webkit (konqueror) browsers */
+     -ms-user-select: none; /* IE10+ */
+    }
+    </style>
   </head>
   <body style="height:100%;margin:0px;">
     <div id="app" style="height:100%">
@@ -22,7 +30,7 @@
         </div>
       </div>
 
-      <div id="puzzle_screen" style="background-color:green;width:600px;height:600px;">
+      <div id="puzzle_screen" style="width:600px;height:600px;"><!--background-color:green;-->
       </div>
 
       <img id="js_img_id" src="Sun_Rise.JPG" style="display:none" /><!--display:none;-->
