@@ -15,7 +15,7 @@
 
 (defn oneDown [coor]
   (let [x (:x coor) y (:y coor)]
-    (if (= y (:y model/size))
+    (if (= y (- (:y model/size) 1 ))
       nil
       {:x x :y (+ y 1)} )))
 
@@ -27,7 +27,7 @@
 
 (defn oneRight [coor]
   (let [x (:x coor) y (:y coor)]
-    (if (= x (:x model/size))
+    (if (= x ( - (:x model/size) 1))
       nil
       {:x (+ x 1) :y y} )))
 
@@ -88,7 +88,7 @@
           ]
           (if item
             (conj excluded (assoc item :butIs adaptedCoord))
-            7
+            vecs;;7 ;; what is this ?? do we just assume this never happens 
             )
       )
   )

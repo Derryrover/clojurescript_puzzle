@@ -3,14 +3,17 @@
     [dommy.core :as dommy :refer-macros [sel sel1]]
     [puzzle.model :as model]
     [puzzle.move :as move]
-    [puzzle.image_dimension :as image_dimension]))
+    [puzzle.image_dimension :as image_dimension]
+    [puzzle.dom_sizes :as dom_sizes]))
+
+(defonce all-tiles (atom model/tiles))
 
 (enable-console-print!)
 
 (println "This text is printed from src/puzzle/core.cljs. Go ahead and edit it and see reloading in action.")
 
 ;; define your app data so that it doesn't get over-written on reload
-(defonce app-state (atom {:text "Hello world!"}))
+;;(defonce app-state (atom {:text "Hello world!"}))
 
 (defn on-js-reload []
   ;; optionally touch your app-state to force rerendering depending on
@@ -43,6 +46,9 @@
 ))
 (image_dimension/risize_image)
 
+(defn click-handler [e]
+    (.log js/console "You clicked my button! Congratulations"))
+
 (defn putTile [tile_model]
 (let [ height (/ 100 (get model/size :y))
        width  (/ 100 (get model/size :x))
@@ -56,7 +62,8 @@
        topStyleMinus (clojure.string/join ["top:" (- ( * top (get model/size :y))) "%;"])
        style_size (clojure.string/join ["overflow:hidden;position:absolute;" heightStyle widthStyle leftStyle topStyle])
        style_inner (clojure.string/join ["z-index:10;position:absolute;" leftStyleMinus topStyleMinus])
-       id (clojure.string/join ["js_id_tile" (get-in tile_model [:shouldBe :x]) (get-in tile_model [:shouldBe :y])]) ]
+       id (clojure.string/join ["js_id_tile" (get-in tile_model [:shouldBe :x]) (get-in tile_model [:shouldBe :y])])
+       tile_model_state (atom (get tile_model :butIs))]
 
   (dommy/append! (sel1 :#puzzle_screen)
     (let [node (.cloneNode (sel1 :#prototype_tile) true)
@@ -68,10 +75,28 @@
       ;;(dommy/set-attr! inner :style style_inner)
       ))
    (dommy/set-attr! (sel1 (sel1 (clojure.string/join ["#" id])) :#prototype_inner) :style style_inner)
+   ;;(dommy/listen! (sel1 (clojure.string/join ["#" id])) :click click-handler)
+   (dommy/listen! (sel1 (clojure.string/join ["#" id])) :click (fn [e]
+       (let [butIs (get tile_model :butIs)
+             move (move/findMove (deref all-tiles) (deref tile_model_state))]
+       (.log js/console "You clicked my button! Congratulations 2")
+       (.log js/console (clojure.string/join [(get (deref tile_model_state) :x) "_" (get (deref tile_model_state) :y)]))
+       (.log js/console move)
+
+       ;;(reset! atom newval)
+       (if (not= move nil)
+         ((fn []
+           (reset! all-tiles (move/doMove (deref all-tiles) (deref tile_model_state) move ))
+           (reset! tile_model_state (move/adaptCoord (deref tile_model_state) move))
+            ))
+         )
+
+       )))
 )
 )
 ;;(putTile 1)
-(mapv putTile model/tiles)
+;;(mapv putTile model/tiles)
+(mapv putTile (deref all-tiles))
 
 (comment
 (dommy/append! (sel1 :#puzzle_screen)
