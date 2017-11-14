@@ -82,4 +82,4 @@ return dommy.core.listen_BANG_.call(null,document.querySelector(dommy.core.selec
 });
 cljs.core.mapv.call(null,puzzle.core.putTile,cljs.core.deref.call(null,puzzle.core.all_tiles));
 
-//# sourceMappingURL=core.js.map?rel=1496669522491
+//# sourceMappingURL=core.js.map?rel=1510423695516

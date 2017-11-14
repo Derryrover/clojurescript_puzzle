@@ -46,4 +46,4 @@ return cljs.core.not_EQ_.call(null,coor,new cljs.core.Keyword(null,"butIs","butI
 });
 puzzle.model.tiles = puzzle.model.excludeFromCollection.call(null,puzzle.model.coords,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"x","x",2099068185),(3),new cljs.core.Keyword(null,"y","y",-1757859776),(3)], null));
 
-//# sourceMappingURL=model.js.map?rel=1496664152068
+//# sourceMappingURL=model.js.map?rel=1510423694837

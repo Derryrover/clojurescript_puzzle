@@ -44,7 +44,7 @@
                ;; lein cljsbuild once min
                {:id "min"
                 :source-paths ["src"]
-                :compiler {:output-to "resources/public/js/compiled/puzzle_min.js"
+                :compiler {:output-to "resources/public/js/compiled/puzzle.js"
                            :main puzzle.core
                            :optimizations :advanced
                            :pretty-print false}}]}

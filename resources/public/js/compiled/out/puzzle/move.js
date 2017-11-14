@@ -87,8 +87,8 @@ return null;
 puzzle.move.adaptCoord = (function puzzle$move$adaptCoord(coord,move){
 var x = new cljs.core.Keyword(null,"x","x",2099068185).cljs$core$IFn$_invoke$arity$1(coord);
 var y = new cljs.core.Keyword(null,"y","y",-1757859776).cljs$core$IFn$_invoke$arity$1(coord);
-var G__29044 = move;
-switch (G__29044) {
+var G__29904 = move;
+switch (G__29904) {
 case "up":
 return cljs.core.assoc.call(null,coord,new cljs.core.Keyword(null,"y","y",-1757859776),(y - (1)));
 
@@ -129,4 +129,4 @@ return puzzle.move.doMove.call(null,vecs,coord,move);
 }
 });
 
-//# sourceMappingURL=move.js.map?rel=1496664152695
+//# sourceMappingURL=move.js.map?rel=1510423695457

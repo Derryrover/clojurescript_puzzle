@@ -59,4 +59,4 @@ return window.clearInterval(interval);
 ,(1.2 * duration));
 });
 
-//# sourceMappingURL=dom_sizes.js.map?rel=1496669522386
+//# sourceMappingURL=dom_sizes.js.map?rel=1510423695339
