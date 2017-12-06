@@ -3,6 +3,14 @@ goog.provide('puzzle.dom_sizes');
 goog.require('cljs.core');
 goog.require('puzzle.model');
 goog.require('dommy.core');
+if(typeof puzzle.dom_sizes.busy !== 'undefined'){
+} else {
+puzzle.dom_sizes.busy = cljs.core.atom.call(null,false);
+}
+if(typeof puzzle.dom_sizes.referenceToInterval !== 'undefined'){
+} else {
+puzzle.dom_sizes.referenceToInterval = cljs.core.atom.call(null,null);
+}
 puzzle.dom_sizes.getTileHeight = (function puzzle$dom_sizes$getTileHeight(){
 return ((100) / cljs.core.get.call(null,puzzle.model.size,new cljs.core.Keyword(null,"y","y",-1757859776)));
 });
@@ -23,8 +31,8 @@ var newLeft = puzzle.dom_sizes.getTileLeft.call(null,newTile);
 return clojure.string.join.call(null,new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, ["left:",newLeft,"%;","top:",newTop,"%;"], null));
 });
 puzzle.dom_sizes.animate = (function puzzle$dom_sizes$animate(id,style,oldTile,newTile){
-var frames = (40);
-var duration = (500);
+var frames = (30);
+var duration = (400);
 var oldTop = puzzle.dom_sizes.getTileTop.call(null,oldTile);
 var newTop = puzzle.dom_sizes.getTileTop.call(null,newTile);
 var oldLeft = puzzle.dom_sizes.getTileLeft.call(null,oldTile);
@@ -41,22 +49,22 @@ var tempTop = ((newStep * stepTop) + oldTop);
 var tempLeft = ((newStep * stepLeft) + oldLeft);
 cljs.core.reset_BANG_.call(null,currentStep,newStep);
 
-console.log("interval runs");
-
 if((newStep > frames)){
-return console.log("clear interval but how keep ref to var?");
+return ((function (oldStep,newStep,tempTop,tempLeft,frames,duration,oldTop,newTop,oldLeft,newLeft,stepDuration,stepTop,stepLeft,currentStep){
+return (function (){
+return window.clearInterval(cljs.core.deref.call(null,puzzle.dom_sizes.referenceToInterval),cljs.core.reset_BANG_.call(null,puzzle.dom_sizes.busy,false));
+});})(oldStep,newStep,tempTop,tempLeft,frames,duration,oldTop,newTop,oldLeft,newLeft,stepDuration,stepTop,stepLeft,currentStep))
+.call(null);
 } else {
 return dommy.core.set_attr_BANG_.call(null,document.querySelector(dommy.core.selector.call(null,clojure.string.join.call(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, ["#",id], null)))),new cljs.core.Keyword(null,"style","style",-496642736),clojure.string.join.call(null,new cljs.core.PersistentVector(null, 7, 5, cljs.core.PersistentVector.EMPTY_NODE, [style,"left:",tempLeft,"%;","top:",tempTop,"%;"], null)));
 }
 });})(frames,duration,oldTop,newTop,oldLeft,newLeft,stepDuration,stepTop,stepLeft,currentStep))
 ;
 
+cljs.core.reset_BANG_.call(null,puzzle.dom_sizes.busy,true);
+
 var interval = window.setInterval(puzzle.dom_sizes.forStep,stepDuration);
-return window.setTimeout(((function (interval,frames,duration,oldTop,newTop,oldLeft,newLeft,stepDuration,stepTop,stepLeft,currentStep){
-return (function (){
-return window.clearInterval(interval);
-});})(interval,frames,duration,oldTop,newTop,oldLeft,newLeft,stepDuration,stepTop,stepLeft,currentStep))
-,(1.2 * duration));
+return cljs.core.reset_BANG_.call(null,puzzle.dom_sizes.referenceToInterval,interval);
 });
 
-//# sourceMappingURL=dom_sizes.js.map?rel=1510423695339
+//# sourceMappingURL=dom_sizes.js.map?rel=1512595802865

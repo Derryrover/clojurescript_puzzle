@@ -101,15 +101,22 @@
            ;;(.log js/console (get newTile :x))
            ;;(.log js/console (clojure.string/join [(get newTile :x) "_" (get newTile :y)]))
            ;;(dommy/set-attr! (sel1 (clojure.string/join ["#" id])) :style (clojure.string/join ["overflow:hidden;position:absolute;" heightStyle widthStyle animStyle]))
-
-           ( dom_sizes/animate  id (clojure.string/join ["overflow:hidden;position:absolute;" heightStyle widthStyle]) oldTile newTile)
+            
+            (if(= false (deref dom_sizes/busy)) 
+            (
+            (fn [] 
+                ( dom_sizes/animate  id (clojure.string/join ["overflow:hidden;position:absolute;" heightStyle widthStyle]) oldTile newTile)
                                                          ;;(dom_sizes/getTileTop oldTile)
                                                          ;;(dom_sizes/getTileTop newTile)
                                                          ;;(dom_sizes/getTileLeft oldTile)
                                                          ;;(dom_sizes/getTileLeft newTile) )
 
-           (reset! all-tiles (move/doMove (deref all-tiles) (deref tile_model_state) move ))
-           (reset! tile_model_state (move/adaptCoord (deref tile_model_state) move))
+                (reset! all-tiles (move/doMove (deref all-tiles) (deref tile_model_state) move ))
+                (reset! tile_model_state (move/adaptCoord (deref tile_model_state) move))
+            )
+            ) )
+            
+           
             )))
          )
 

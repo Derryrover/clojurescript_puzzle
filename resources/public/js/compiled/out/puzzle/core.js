@@ -65,11 +65,19 @@ var oldTile = cljs.core.deref.call(null,tile_model_state);
 var newTile = puzzle.move.adaptCoord.call(null,oldTile,move);
 var animStyle = puzzle.dom_sizes.getAnimStyle.call(null,oldTile,newTile);
 var newTileX = cljs.core.get.call(null,newTile,new cljs.core.Keyword(null,"x","x",2099068185));
+if(cljs.core._EQ_.call(null,false,cljs.core.deref.call(null,puzzle.dom_sizes.busy))){
+return ((function (oldTile,newTile,animStyle,newTileX,butIs,move,height,width,left,top,heightStyle,widthStyle,leftStyle,topStyle,leftStyleMinus,topStyleMinus,style_size,style_inner,id,tile_model_state){
+return (function (){
 puzzle.dom_sizes.animate.call(null,id,clojure.string.join.call(null,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, ["overflow:hidden;position:absolute;",heightStyle,widthStyle], null)),oldTile,newTile);
 
 cljs.core.reset_BANG_.call(null,puzzle.core.all_tiles,puzzle.move.doMove.call(null,cljs.core.deref.call(null,puzzle.core.all_tiles),cljs.core.deref.call(null,tile_model_state),move));
 
 return cljs.core.reset_BANG_.call(null,tile_model_state,puzzle.move.adaptCoord.call(null,cljs.core.deref.call(null,tile_model_state),move));
+});})(oldTile,newTile,animStyle,newTileX,butIs,move,height,width,left,top,heightStyle,widthStyle,leftStyle,topStyle,leftStyleMinus,topStyleMinus,style_size,style_inner,id,tile_model_state))
+.call(null);
+} else {
+return null;
+}
 });})(butIs,move,height,width,left,top,heightStyle,widthStyle,leftStyle,topStyle,leftStyleMinus,topStyleMinus,style_size,style_inner,id,tile_model_state))
 .call(null);
 } else {
@@ -82,4 +90,4 @@ return dommy.core.listen_BANG_.call(null,document.querySelector(dommy.core.selec
 });
 cljs.core.mapv.call(null,puzzle.core.putTile,cljs.core.deref.call(null,puzzle.core.all_tiles));
 
-//# sourceMappingURL=core.js.map?rel=1510423695516
+//# sourceMappingURL=core.js.map?rel=1512595802974
